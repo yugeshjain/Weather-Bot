@@ -1,0 +1,38 @@
+name: Daily Weather Commit
+
+on:
+  schedule:
+    - cron: '0 12 * * *'  # Runs every day at 6 AM UTC
+  workflow_dispatch:
+
+jobs:
+  weather-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Fetch weather and update README
+        run: |
+          CITY="Chandigarh"
+          WEATHER=$(curl -s "wttr.in/${CITY}?format=3")
+          DATE=$(date "+%Y-%m-%d %H:%M UTC")
+          
+          echo "## 🌤️ Daily Weather Report" > README.md
+          echo "" >> README.md
+          echo "- **Location:** $CITY" >> README.md
+          echo "- **Weather:** $WEATHER" >> README.md
+          echo "- **Updated at:** $DATE" >> README.md
+
+      - name: Commit and push changes
+        env:
+          GIT_USER: yugeshjain
+          GIT_EMAIL: jainyugesh@example.com
+          PAT: ${{ secrets.MY_PAT }}
+        run: |
+          git config --global user.name "$GIT_USER"
+          git config --global user.email "$GIT_EMAIL"
+          git add README.md
+          git commit -m "📅 Chandigarh Weather update: $(date '+%Y-%m-%d')" || echo "No changes"
+          git push https://$PAT@github.com/${{ github.repository }} HEAD:main
