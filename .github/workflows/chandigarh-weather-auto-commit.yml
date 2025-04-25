@@ -1,4 +1,4 @@
-name: Daily Weather Commit
+name: Daily Chandigarh Weather Commit
 
 on:
   schedule:
