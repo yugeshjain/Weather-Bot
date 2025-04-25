@@ -28,7 +28,7 @@ jobs:
       - name: Check PAT
         run: echo "PAT is ${#PAT} characters long"
         env:
-          PAT: ${{ secrets.GH_PAT }}
+          PAT: ${{ secrets.MY_PAT }}
         
       - name: Commit and push changes
         env:
