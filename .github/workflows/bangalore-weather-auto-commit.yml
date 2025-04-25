@@ -1,4 +1,4 @@
-name: Daily Weather Commit
+name: Daily Bangalore Weather Commit
 
 on:
   schedule:
