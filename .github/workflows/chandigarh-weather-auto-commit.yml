@@ -25,6 +25,11 @@ jobs:
           echo "- **Weather:** $WEATHER" >> README.md
           echo "- **Updated at:** $DATE" >> README.md
 
+      - name: Check PAT
+        run: echo "PAT is ${#PAT} characters long"
+        env:
+          PAT: ${{ secrets.GH_PAT }}
+        
       - name: Commit and push changes
         env:
           GIT_USER: yugeshjain
